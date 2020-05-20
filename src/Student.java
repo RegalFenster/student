@@ -1,8 +1,15 @@
+/*
+ * Creator: David Riegler (20.05.2020)
+ * Last changed by: David Riegler
+ * Last change: 20.05.2020
+ */
+
 import java.sql.*;
 
 public class Student {
     private static Statement s;
     private static ResultSet r;
+
     private enum ORDERING {
         ASC, DESC;
     }
@@ -34,7 +41,7 @@ public class Student {
             insertRecordsInTable();
         }
         readRecordsFromTable();
-        readSortedRecordsFromTable(4, ORDERING.ASC);
+        readSortedRecordsFromTable(2, ORDERING.DESC);
     }
 
     private static void createRegistrationTable() throws SQLException {
@@ -57,23 +64,22 @@ public class Student {
         }
     }
 
-
     private static void readSortedRecordsFromTable(int columnNr, ORDERING ordering) throws SQLException {
         String nameOfColumn;
-        if (columnNr == 1)
+        if (columnNr == 0)
             nameOfColumn = "id";
-        else if (columnNr == 2)
+        else if (columnNr == 1)
             nameOfColumn = "firstname";
-        else if (columnNr == 3)
+        else if (columnNr == 2)
             nameOfColumn = "lastname";
-        else if (columnNr == 4)
+        else if (columnNr == 3)
             nameOfColumn = "age";
         else {
             System.out.println("Column number " + columnNr + " doesn't exist");
             return;
         }
         System.out.println("[ID,First name, Last name, Age]");
-        r = s.executeQuery("SELECT * FROM registration " + "ORDER by " + nameOfColumn + " " + ordering);
+        r = s.executeQuery("SELECT * FROM registration ORDER BY " + nameOfColumn + " " + ordering);
         while (r.next()) {
             System.out.println(r.getInt("id") - 1 + ", " + r.getString("firstname") + ", "
                     + r.getString("lastname") + ", " + r.getString("age"));
