@@ -31,8 +31,8 @@ public class Student {
         if (r.next())
             return;
 
-        s.executeUpdate("CREATE TABLE registration (id int NOT NULL AUTO_INCREMENT, " +
-                "firstname varchar(255) NOT NULL, lastname varchar(255) NOT NULL, age int NOT NULL, " +
+        s.executeUpdate("CREATE TABLE registration (id int(11) NOT NULL AUTO_INCREMENT, " +
+                "firstname varchar(255) NOT NULL, lastname varchar(255) NOT NULL, age int(11) NOT NULL, " +
                 "PRIMARY KEY (id));");
 
 
@@ -45,7 +45,10 @@ public class Student {
     }
 
     private static void readRecordsFromTable() throws SQLException {
-
+        r = s.executeQuery("SELECT * FROM registration");
+        while (r.next()) {
+            System.out.println(r.getInt("id"));
+        }
     }
 
 
